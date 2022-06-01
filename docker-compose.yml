@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  php:
+#    image: ramil063/laravel-k8s-app:latest
+    build: .
+    restart: "no"
+    ports:
+      - 8000:80
+    environment:
+      - APP_KEY="base64:tgEShQo7EjObwm8QaEyn/mpqMngpmIIJediWogs3AdM="
+      - APACHE_RUN_USER=www-data
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - DB_PORT=3306
+      - DB_HOST=mysql
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+        - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+    working_dir: ${APP_PATH_CONTAINER}
+  mysql:
+    image: mysql:5.7
+    restart: "no"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
