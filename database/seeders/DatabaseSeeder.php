@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            CategorySeeder::class,
+            MenuSeeder::class,
+            PageSeeder::class,
+            MenuItemSeeder::class,
+            RubricSeeder::class,
+            StatusSeeder::class,
+            TagSeeder::class,
+            MenuItemPageSeeder::class,
+            UserSeeder::class
+        ]);
+        Post::factory(100)->create();
     }
 }
