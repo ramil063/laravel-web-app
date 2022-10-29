@@ -18,21 +18,25 @@ class MenuSeeder extends Seeder
         $menus = [
             [
                 'id' => 1,
+                'title' => 'Верхнее меню',
                 'position' => 'top',
                 'description' => 'Верхнее меню',
             ],
             [
                 'id' => 2,
+                'title' => 'Нижнее меню',
                 'position' => 'bottom',
                 'description' => 'Нижнее меню',
             ],
             [
                 'id' => 3,
+                'title' => 'Левое меню',
                 'position' => 'left',
                 'description' => 'Левое меню',
             ],
             [
                 'id' => 4,
+                'title' => 'Правое меню',
                 'position' => 'right',
                 'description' => 'Правое меню',
             ],

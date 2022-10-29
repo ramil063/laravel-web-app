@@ -100,6 +100,7 @@ class CreateMainTables extends Migration
 
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->comment('Название');
             $table->string('position')->comment('Позиция');
             $table->string('description')->nullable()->comment('Описание');
             $table->unsignedBigInteger('parent_id')->nullable()->comment('Родитель');
