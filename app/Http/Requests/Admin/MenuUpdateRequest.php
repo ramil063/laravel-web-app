@@ -26,9 +26,9 @@ class MenuUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
-            'position' => 'required|exists:menus,position',
-            'description' => 'max:100',
+            'title' => 'required|string|min:3|max:100',
+            'position' => 'required|string|exists:menus,position',
+            'description' => 'nullable|min:3|max:100',
             /**
              * TODO исправить этот костыль
              */

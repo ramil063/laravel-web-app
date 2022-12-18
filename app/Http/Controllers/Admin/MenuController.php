@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\MenuStoreRequest;
 use App\Http\Requests\Admin\MenuUpdateRequest;
 use App\Models\Menu;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class MenuController extends BaseAdminController
 {
@@ -33,22 +33,40 @@ class MenuController extends BaseAdminController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        $menus = Menu::whereNotNull('published_at')->get();
+        return view('admin.menu.create', [
+            'menu' => new Menu(),
+            'menus' => $menus
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param MenuStoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuStoreRequest $request)
     {
-        //
+        $data = $request->all();
+        if (!empty($data['publish'])) {
+            $data['published_at'] = Carbon::createFromTimestamp(time())->toDate();
+        }
+        $item = new Menu($data);
+        $item->save();
+
+        if ($item) {
+            return redirect()
+                ->route('admin.menu.edit', $item->id)
+                ->with(['success' => 'Запись успешно сохранена']);
+        }
+        return back()
+            ->withErrors(['message' => 'Ошибка сохранения'])
+            ->withInput();
     }
 
     /**
@@ -107,10 +125,18 @@ class MenuController extends BaseAdminController
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        $result = Menu::destroy($id);
+        if ($result) {
+            return redirect()
+                ->route('admin.menu.index')
+                ->with(['success' => 'Запись успешно удалена']);
+        }
+        return back()
+            ->withErrors(['message' => 'Ошибка удаления'])
+            ->withInput();
     }
 }
