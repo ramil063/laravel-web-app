@@ -53,9 +53,6 @@ class MenuController extends BaseAdminController
     public function store(MenuStoreRequest $request)
     {
         $data = $request->all();
-        if (!empty($data['publish'])) {
-            $data['published_at'] = Carbon::createFromTimestamp(time())->toDate();
-        }
         $item = new Menu($data);
         $item->save();
 
@@ -94,21 +91,16 @@ class MenuController extends BaseAdminController
      */
     public function update(MenuUpdateRequest $request, $id)
     {
-        $item = Menu::findOrFail($id);
+        $item = Menu::where('id', $id)->first();
         if (empty($item)) {
             back(404)
                 ->withErrors(['message' => 'Запись не найдена'])
                 ->withInput();
         }
         $data = $request->all();
-        if (!empty($data['parent_id']) && $data['parent_id'] == 'null') {
-            $data['parent_id'] = null;
-        }
-        if (!empty($data['publish'])) {
-            $data['published_at'] = Carbon::createFromTimestamp(time())->toDate();
-        } else {
-            $data['published_at'] = null;
-        }
+        /**
+         * observer updating not work
+         */
         $result = $item->update($data);
 
         if ($result) {

@@ -138,12 +138,17 @@
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Сохранить') }}
                                     </button>
-                                    <form action="{{route('admin.menu.destroy', $menu->id)}}">
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">
-                                            {{ __('Удалить') }}
-                                        </button>
-                                    </form>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <form action="{{route('admin.menu.destroy', $menu->id)}}">
+                            @method('DELETE')
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-danger">
+                                        {{ __(' Удалить ') }}
+                                    </button>
                                 </div>
                             </div>
                         </form>
