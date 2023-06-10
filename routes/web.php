@@ -22,20 +22,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resources([
-        'category' => CategoryController::class,
-        'comment' => CommentController::class,
-        'menu' => MenuController::class,
-        'menu-item' => MenuItemController::class,
-        'menu-item-page' => MenuItemPageController::class,
-        'page' => PageController::class,
-        'posts' => PostController::class,
-        'rubric' => RubricController::class,
-        'status' => StatusController::class,
-    ]);
+
+    Route::get('/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
+    Route::resource('category', CategoryController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/comment/{id}/destroy', [CommentController::class, 'destroy'])->name('comment.destroy');
+    Route::resource('comment', CommentController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/menu/{id}/destroy', [MenuController::class, 'destroy'])->name('menu.destroy');
+    Route::resource('menu', MenuController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/menu-item/{id}/destroy', [MenuItemController::class, 'destroy'])->name('menu-item.destroy');
+    Route::resource('menu-item', MenuItemController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/page/{id}/destroy', [PageController::class, 'destroy'])->name('page.destroy');
+    Route::resource('page', PageController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/posts/{id}/destroy', [PostController::class, 'destroy'])->name('posts.destroy');
+    Route::resource('posts', PostController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/rubric/{id}/destroy', [RubricController::class, 'destroy'])->name('rubric.destroy');
+    Route::resource('rubric', RubricController::class)->except(['show', 'delete', 'destroy']);
+
+    Route::get('/status/{id}/destroy', [StatusController::class, 'destroy'])->name('status.destroy');
+    Route::resource('status', StatusController::class)->except(['show', 'delete', 'destroy']);
+
 });
 
 Auth::routes();

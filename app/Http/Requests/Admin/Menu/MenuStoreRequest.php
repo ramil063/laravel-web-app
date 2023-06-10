@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Menu;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * Class MenuStoreRequest
+ */
 class MenuStoreRequest extends FormRequest
 {
     /**

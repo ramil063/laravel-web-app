@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\MenuStoreRequest;
-use App\Http\Requests\Admin\MenuUpdateRequest;
+use App\Http\Requests\Admin\Menu\MenuStoreRequest;
+use App\Http\Requests\Admin\Menu\MenuUpdateRequest;
 use App\Models\Menu;
-use Carbon\Carbon;
 
+/**
+ * Class MenuController
+ */
 class MenuController extends BaseAdminController
 {
     /**
@@ -98,9 +100,6 @@ class MenuController extends BaseAdminController
                 ->withInput();
         }
         $data = $request->all();
-        /**
-         * observer updating not work
-         */
         $result = $item->update($data);
 
         if ($result) {
@@ -127,7 +126,8 @@ class MenuController extends BaseAdminController
                 ->route('admin.menu.index')
                 ->with(['success' => 'Запись успешно удалена']);
         }
-        return back()
+        return redirect()
+            ->back()
             ->withErrors(['message' => 'Ошибка удаления'])
             ->withInput();
     }

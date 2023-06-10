@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Menu;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
+/**
+ * Class MenuUpdateRequest
+ */
 class MenuUpdateRequest extends FormRequest
 {
     /**

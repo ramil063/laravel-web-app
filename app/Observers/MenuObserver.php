@@ -2,10 +2,12 @@
 
 namespace App\Observers;
 
-use App\Http\Requests\Admin\MenuStoreRequest;
 use App\Models\Menu;
 use Carbon\Carbon;
 
+/**
+ * Class MenuObserver
+ */
 class MenuObserver
 {
     /**

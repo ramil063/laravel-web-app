@@ -3,8 +3,8 @@
 @section('content')
     @php
         /**
-         * @var \App\Models\Menu $menu
-         * @var \App\Models\Menu[] $menus
+         * @var \App\Models\Category $item
+         * @var \App\Models\Category[] $items
          */
     @endphp
     <div class="container">
@@ -15,14 +15,14 @@
                     <div class="card-header">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/admin/menu">{{ __('Меню') }}</a></li>
+                                <li class="breadcrumb-item"><a href="/admin/category">{{ __('Категории') }}</a></li>
                                 <li class="breadcrumb-item active"
-                                    aria-current="page">{{ __('Меню: редактирование') }}</li>
+                                    aria-current="page">{{ __('Категория: редактирование') }}</li>
                             </ol>
                         </nav>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.menu.update', $menu->id) }}">
+                        <form method="POST" action="{{ route('admin.category.update', $item->id) }}">
                             @csrf
                             @method('patch')
 
@@ -33,7 +33,7 @@
                                 <div class="col-md-6">
                                     <input id="title" type="text"
                                            class="form-control @error('title') is-invalid @enderror" name="title"
-                                           value="{{ old('title', $menu->title) }}" required>
+                                           value="{{ old('title', $item->title) }}" required>
                                     @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -44,15 +44,14 @@
 
 
                             <div class="row mb-3">
-                                <label for="description"
-                                       class="col-md-4 col-form-label text-md-end">{{ __('Описание') }}</label>
+                                <label for="code"
+                                       class="col-md-4 col-form-label text-md-end">{{ __('Код') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="description" type="text"
-                                           class="form-control @error('description') is-invalid @enderror"
-                                           name="description" value="{{ old('description', $menu->description) }}"
-                                           required>
-                                    @error('description')
+                                    <input id="code" type="text"
+                                           class="form-control @error('code') is-invalid @enderror"
+                                           name="code" value="{{ old('code', $item->code) }}">
+                                    @error('code')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -61,24 +60,13 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="position" class="col-md-4 col-form-label text-md-end">Позиция</label>
-
-                                <div class="col-md-6">
-                                    <input id="position" type="text" class="form-control" name="position"
-                                           value="{{ old('position', $menu->position) }}" readonly>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
                                 <label for="parent_id"
                                        class="col-md-4 col-form-label text-md-end">{{ __('Родитель') }}</label>
                                 <div class="col-md-6">
-                                    <select class="form-select" aria-label="Позиция" id="parent_id" name="parent_id"
-                                            required>
-                                        <option value="null">Выберите родителя</option>
-                                        @foreach($menus as $m)
-                                            <option value="{{$m->id}}"
-                                                    @if($menu->parent_id == $m->id) selected @endif>{{$m->description}}</option>
+                                    <select class="form-select" aria-label="Родитель" id="parent_id" name="parent_id" required>
+                                        <option value="">Выберите родителя</option>
+                                        @foreach($items as $i)
+                                            <option value="{{$i->id}}" @if($i->id == $item->parent_id) selected @endif>{{$i->title}}</option>
                                         @endforeach
                                     </select>
                                     @error('parent_id')
@@ -95,7 +83,7 @@
 
                                 <div class="col-md-6">
                                     <input id="created_at" type="text" class="form-control" name="created_at"
-                                           value="{{ $menu->created_at }}" disabled>
+                                           value="{{ $item->created_at }}" disabled>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -104,32 +92,7 @@
 
                                 <div class="col-md-6">
                                     <input id="updated_at" type="text" class="form-control" name="updated_at"
-                                           value="{{ $menu->updated_at }}" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="published_at"
-                                       class="col-md-4 col-form-label text-md-end">{{ __('Опубликовано') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="published_at" type="text" class="form-control" name="published_at"
-                                           value="{{ $menu->published_at }}" disabled>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="publish"
-                                       class="col-md-4 col-form-label text-md-end">{{ __('Опубликовать') }}</label>
-
-                                <div class="col-md-6">
-                                    <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        value="1"
-                                        id="publish"
-                                        name="publish" @if($menu->published_at) checked @endif
-                                        onclick="document.getElementById('published_at').value = ''"
-                                    >
+                                           value="{{ $item->updated_at }}" disabled>
                                 </div>
                             </div>
 
@@ -142,9 +105,7 @@
                             </div>
                         </form>
                         <br>
-                        <form action="{{route('admin.menu.destroy', $menu->id)}}">
-                            @csrf
-                            @method('DELETE')
+                        <form action="{{route('admin.category.destroy', $item->id)}}">
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-danger">
