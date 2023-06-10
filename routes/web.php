@@ -28,7 +28,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('category', CategoryController::class)->except(['show', 'delete', 'destroy']);
 
     Route::get('/comment/{id}/destroy', [CommentController::class, 'destroy'])->name('comment.destroy');
-    Route::resource('comment', CommentController::class)->except(['show', 'delete', 'destroy']);
+    Route::resource('comment', CommentController::class)->except(['show', 'delete', 'destroy', 'create']);
 
     Route::get('/menu/{id}/destroy', [MenuController::class, 'destroy'])->name('menu.destroy');
     Route::resource('menu', MenuController::class)->except(['show', 'delete', 'destroy']);
