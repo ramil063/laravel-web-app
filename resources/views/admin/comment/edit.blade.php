@@ -51,7 +51,7 @@
 
                                 <div class="col-md-6">
                                     <input id="user_id" type="text" class="form-control" name="user_id"
-                                           value="{{ $item->user_id }}" disabled>
+                                           value="{{ $item->user_id }}" readonly required>
                                 </div>
                             </div>
 
