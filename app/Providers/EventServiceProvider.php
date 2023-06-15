@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\Menu;
+use App\Models\MenuItem;
 use App\Observers\CategoryObserver;
+use App\Observers\MenuItemObserver;
 use App\Observers\MenuObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -33,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     {
         Menu::observe(MenuObserver::class);
         Category::observe(CategoryObserver::class);
+        MenuItem::observe(MenuItemObserver::class);
     }
 }

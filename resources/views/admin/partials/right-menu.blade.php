@@ -16,6 +16,9 @@
                         <a class="nav-link" aria-current="page" href="/admin/menu">Меню</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/admin/menu-item">Пункты меню</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/admin/category">Категории</a>
                     </li>
                     <li class="nav-item">
