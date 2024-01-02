@@ -24,6 +24,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/comment">Комментарии</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/page">Страницы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/posts">Статьи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/rubric">Рубрики</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/status">Статус</a>
+                    </li>
                 </ul>
             </div>
         </div>

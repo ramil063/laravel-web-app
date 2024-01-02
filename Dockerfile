@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
     g++
 
 # Apache configuration
-ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/laravel-app/app
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 RUN a2enmod rewrite headers
@@ -36,12 +36,12 @@ RUN docker-php-ext-install \
 ENV LOG_CHANNEL=stderr
 
 # Set a volume mount point for your code
-VOLUME /var/www/html
+VOLUME /var/www/laravel-app/app
 
 # Copy code and run composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . /var/www/tmp
-RUN cd /var/www/tmp && composer install --no-dev
+RUN #cd /var/www/tmp && composer install --no-dev
 
 # Ensure the entrypoint file can be run
 RUN chmod +x /var/www/tmp/docker-entrypoint.sh

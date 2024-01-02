@@ -1,24 +1,32 @@
 version: '3.5'
 services:
-  php:
-    build: .
-    container_name: 'php'
-    restart: "no"
-    ports:
-      - 8000:80
-    environment:
-      - APP_KEY="base64:tgEShQo7EjObwm8QaEyn/mpqMngpmIIJediWogs3AdM="
-      - APACHE_RUN_USER=www-data
-      - APP_ENV=local
-      - APP_DEBUG=true
-      - DB_PORT=3306
-      - DB_HOST=mysql
-      - DB_DATABASE=${DB_DATABASE}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
+  nginx:
+    image: nginx
+    container_name: 'nginx'
     volumes:
-        - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
-    working_dir: ${APP_PATH_CONTAINER}
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+    ports:
+      - 8081:80
+      - 443:443
+#  php:
+#    build: .
+#    container_name: 'php'
+#    restart: "no"
+#    ports:
+#      - 8000:80
+#    environment:
+#      - APP_KEY="base64:tgEShQo7EjObwm8QaEyn/mpqMngpmIIJediWogs3AdM="
+#      - APACHE_RUN_USER=www-data
+#      - APP_ENV=local
+#      - APP_DEBUG=true
+#      - DB_PORT=3306
+#      - DB_HOST=mysql
+#      - DB_DATABASE=${DB_DATABASE}
+#      - DB_USERNAME=${DB_USERNAME}
+#      - DB_PASSWORD=${DB_PASSWORD}
+#    volumes:
+#        - ${APP_PATH_HOST}:${APP_PATH_CONTAINER}
+#    working_dir: ${APP_PATH_CONTAINER}
   mysql:
     image: mysql
     container_name: 'mysql'
